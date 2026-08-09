@@ -35,6 +35,13 @@
     "allDeclaredFields": true
   },
   {
+    "name": "tui.crossterm.Color",
+    "allDeclaredConstructors": true,
+    "allPublicConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
     "name": "tui.crossterm.Color$AnsiValue",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
@@ -168,7 +175,7 @@
     "allDeclaredFields": true
   },
   {
-    "name": "tui.crossterm.Color",
+    "name": "tui.crossterm.Command",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -343,6 +350,13 @@
     "allDeclaredFields": true
   },
   {
+    "name": "tui.crossterm.Command$Print",
+    "allDeclaredConstructors": true,
+    "allPublicConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
     "name": "tui.crossterm.Command$PushKeyboardEnhancementFlags",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
@@ -420,6 +434,13 @@
     "allDeclaredFields": true
   },
   {
+    "name": "tui.crossterm.Command$SetCursorStyle",
+    "allDeclaredConstructors": true,
+    "allPublicConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
     "name": "tui.crossterm.Command$SetForegroundColor",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
@@ -455,20 +476,6 @@
     "allDeclaredFields": true
   },
   {
-    "name": "tui.crossterm.Command$Print",
-    "allDeclaredConstructors": true,
-    "allPublicConstructors": true,
-    "allDeclaredMethods": true,
-    "allDeclaredFields": true
-  },
-  {
-    "name": "tui.crossterm.Command",
-    "allDeclaredConstructors": true,
-    "allPublicConstructors": true,
-    "allDeclaredMethods": true,
-    "allDeclaredFields": true
-  },
-  {
     "name": "tui.crossterm.CrosstermJni",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
@@ -483,7 +490,21 @@
     "allDeclaredFields": true
   },
   {
+    "name": "tui.crossterm.CursorStyle",
+    "allDeclaredConstructors": true,
+    "allPublicConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
     "name": "tui.crossterm.Duration",
+    "allDeclaredConstructors": true,
+    "allPublicConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "tui.crossterm.Event",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -532,7 +553,7 @@
     "allDeclaredFields": true
   },
   {
-    "name": "tui.crossterm.Event",
+    "name": "tui.crossterm.KeyCode",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -728,13 +749,6 @@
     "allDeclaredFields": true
   },
   {
-    "name": "tui.crossterm.KeyCode",
-    "allDeclaredConstructors": true,
-    "allPublicConstructors": true,
-    "allDeclaredMethods": true,
-    "allDeclaredFields": true
-  },
-  {
     "name": "tui.crossterm.KeyEvent",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
@@ -798,6 +812,13 @@
     "allDeclaredFields": true
   },
   {
+    "name": "tui.crossterm.MouseEventKind",
+    "allDeclaredConstructors": true,
+    "allPublicConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
     "name": "tui.crossterm.MouseEventKind$Down",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
@@ -826,6 +847,20 @@
     "allDeclaredFields": true
   },
   {
+    "name": "tui.crossterm.MouseEventKind$ScrollLeft",
+    "allDeclaredConstructors": true,
+    "allPublicConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "tui.crossterm.MouseEventKind$ScrollRight",
+    "allDeclaredConstructors": true,
+    "allPublicConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
     "name": "tui.crossterm.MouseEventKind$ScrollUp",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
@@ -834,13 +869,6 @@
   },
   {
     "name": "tui.crossterm.MouseEventKind$Up",
-    "allDeclaredConstructors": true,
-    "allPublicConstructors": true,
-    "allDeclaredMethods": true,
-    "allDeclaredFields": true
-  },
-  {
-    "name": "tui.crossterm.MouseEventKind",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
