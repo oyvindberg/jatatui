@@ -25,8 +25,7 @@ class FormTest {
               apiRef.set(FormApi.useForm(ctx));
               return text("ok");
             });
-    Element app =
-        formProvider(Map.of("name", "Alice", "age", 30), values -> {}, child);
+    Element app = formProvider(Map.of("name", "Alice", "age", 30), values -> {}, child);
     new TestHarness(40, 12).render(app);
     assertEquals("Alice", apiRef.get().getValue("name").orElse(null));
     assertEquals(30, apiRef.get().getValue("age").orElse(null));
@@ -117,8 +116,7 @@ class FormTest {
               apiRef.set(FormApi.useForm(ctx));
               return text("ok");
             });
-    Element app =
-        formProvider(Map.of("name", "Alice"), values -> submitted.set(true), child);
+    Element app = formProvider(Map.of("name", "Alice"), values -> submitted.set(true), child);
     new TestHarness(40, 12).render(app);
     apiRef.get().submit();
     assertTrue(submitted.get());
@@ -142,5 +140,4 @@ class FormTest {
     h.render(app);
     assertEquals("Alice", apiRef.get().getValue("name").orElse(null));
   }
-
 }

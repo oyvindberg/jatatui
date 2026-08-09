@@ -151,7 +151,9 @@ class EventBubblingIntegrationTest {
     h.focus().tab();
     log.clear();
 
-    assertEquals(Optional.of("inner"), h.focus().currentlyFocused(),
+    assertEquals(
+        Optional.of("inner"),
+        h.focus().currentlyFocused(),
         "tab cycle should reach inner after two presses");
 
     KeyEvent ev = new KeyEvent(new KeyCode.Char('a'), new KeyModifiers(0));

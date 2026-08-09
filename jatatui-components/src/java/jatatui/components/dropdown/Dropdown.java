@@ -131,7 +131,8 @@ public final class Dropdown {
                     // this, underlying widgets' borders / text bleed through gaps in our rows.
                     return stack(
                         widget(jatatui.widgets.Clear.instance()),
-                        optionsList(props.items(), props.labelFn(), hi, props.onChange(), openState));
+                        optionsList(
+                            props.items(), props.labelFn(), hi, props.onChange(), openState));
                   });
 
           Element backdrop =
@@ -162,7 +163,10 @@ public final class Dropdown {
       boolean hi = i == highlightedIndex;
       Style rowStyle =
           hi
-              ? Style.empty().withBg(new Color.Blue()).withFg(new Color.White()).withAddModifier(Modifier.BOLD)
+              ? Style.empty()
+                  .withBg(new Color.Blue())
+                  .withFg(new Color.White())
+                  .withAddModifier(Modifier.BOLD)
               : Style.empty();
       String prefix = hi ? "> " : "  ";
       int idx = i;
@@ -184,7 +188,8 @@ public final class Dropdown {
 
   private static Rect listAreaBelow(Rect anchor, int itemCount, Rect screen) {
     int width = anchor.width();
-    int height = Math.min(itemCount + 2, screen.height() - (anchor.y() + anchor.height())); // +2 for borders
+    int height =
+        Math.min(itemCount + 2, screen.height() - (anchor.y() + anchor.height())); // +2 for borders
     if (height < 3) height = Math.min(itemCount + 2, screen.height()); // fall back: clamp to screen
     int x = anchor.x();
     int y = anchor.y() + anchor.height();

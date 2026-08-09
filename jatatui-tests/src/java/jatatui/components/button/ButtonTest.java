@@ -20,9 +20,7 @@ class ButtonTest {
   void click_activates() throws IOException {
     AtomicInteger n = new AtomicInteger();
     Element app =
-        column(
-                length(3, Button.of("Save", "save", true, n::incrementAndGet)),
-                fill(1, text("")))
+        column(length(3, Button.of("Save", "save", true, n::incrementAndGet)), fill(1, text("")))
             .with(p -> p.withSpacing(0).withMargin(new Margin(0, 0)));
 
     TestHarness h = new TestHarness(40, 10);
@@ -35,9 +33,7 @@ class ButtonTest {
   void enter_activates_when_focused() throws IOException {
     AtomicInteger n = new AtomicInteger();
     Element app =
-        column(
-                length(3, Button.of("Save", "save", true, n::incrementAndGet)),
-                fill(1, text("")))
+        column(length(3, Button.of("Save", "save", true, n::incrementAndGet)), fill(1, text("")))
             .with(p -> p.withSpacing(0).withMargin(new Margin(0, 0)));
 
     TestHarness h = new TestHarness(40, 10);
@@ -52,9 +48,7 @@ class ButtonTest {
   void enter_does_nothing_when_not_focused() throws IOException {
     AtomicInteger n = new AtomicInteger();
     Element app =
-        column(
-                length(3, Button.of("Save", "save", true, n::incrementAndGet)),
-                fill(1, text("")))
+        column(length(3, Button.of("Save", "save", true, n::incrementAndGet)), fill(1, text("")))
             .with(p -> p.withSpacing(0).withMargin(new Margin(0, 0)));
 
     TestHarness h = new TestHarness(40, 10);

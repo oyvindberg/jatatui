@@ -9,7 +9,8 @@ import java.util.Optional;
 ///
 /// Three permits, deliberately minimal:
 ///   - [Of] — application of a [Component] to its props (the universal "user component" form)
-///   - [Host] — a leaf that paints directly via an [Intrinsic] (escape hatch; rarely authored by users)
+///   - [Host] — a leaf that paints directly via an [Intrinsic] (escape hatch; rarely authored by
+// users)
 ///   - [Sized] — pure layout metadata: a [Constraint] attached to a child, read by parent layouts
 ///
 /// All built-in factories (`text`, `box`, `column`, `row`, `tabs`, `forEach`, `button`, etc.)

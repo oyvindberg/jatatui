@@ -77,11 +77,7 @@ public final class BubbleExample {
   // ---- Nested boxes ----
 
   static Element nestedBoxes(State<List<String>> log) {
-    return outerBox(
-        log,
-        middleBox(
-            log,
-            innerBox(log)));
+    return outerBox(log, middleBox(log, innerBox(log)));
   }
 
   static Element outerBox(State<List<String>> log, Element child) {

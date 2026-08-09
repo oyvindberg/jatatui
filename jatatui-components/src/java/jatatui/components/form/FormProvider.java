@@ -30,8 +30,7 @@ public final class FormProvider {
     return component(
         ctx -> {
           State<Map<String, Object>> valuesState = ctx.useState(() -> initial);
-          State<Map<String, String>> errorsState =
-              ctx.useState(() -> validate.apply(initial));
+          State<Map<String, String>> errorsState = ctx.useState(() -> validate.apply(initial));
           State<Boolean> submitting = ctx.useState(() -> false);
           Ref<Function<Map<String, Object>, Map<String, String>>> validateRef =
               ctx.useRef(() -> validate);

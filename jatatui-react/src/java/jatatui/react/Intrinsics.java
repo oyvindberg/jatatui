@@ -64,7 +64,8 @@ public final class Intrinsics {
   /// Holds a `Consumer<MouseEvent>` so handlers that care can `stopPropagation` or read modifiers.
   /// The `Runnable`-flavored `Components.button(...)` factory wraps a Runnable into a Consumer
   /// that ignores the event.
-  public record ButtonProps(String label, Style style, java.util.function.Consumer<MouseEvent> onClick) {}
+  public record ButtonProps(
+      String label, Style style, java.util.function.Consumer<MouseEvent> onClick) {}
 
   public static final Component<ButtonProps> BUTTON =
       (props, ctx) ->
@@ -100,8 +101,7 @@ public final class Intrinsics {
 
   // -------------------- Column / Row (vertical / horizontal layout) --------------------
 
-  public record ColumnProps(
-      List<Element> children, Flex flex, Spacing spacing, Margin margin) {
+  public record ColumnProps(List<Element> children, Flex flex, Spacing spacing, Margin margin) {
     public ColumnProps withFlex(Flex f) {
       return new ColumnProps(children, f, spacing, margin);
     }
@@ -177,7 +177,8 @@ public final class Intrinsics {
                     .withStyle(Style.empty().withFg(Color.GRAY))
                     .render(split[0], c.buffer());
                 if (props.selected() >= 0 && props.selected() < props.tabs().size()) {
-                  c.renderChild(props.selected(), props.tabs().get(props.selected()).body(), split[1]);
+                  c.renderChild(
+                      props.selected(), props.tabs().get(props.selected()).body(), split[1]);
                 }
               });
 
@@ -211,7 +212,9 @@ public final class Intrinsics {
 
   public static final Component<WhenProps> WHEN =
       (props, ctx) ->
-          props.condition() ? props.child() : new Element.Of<>(EMPTY, new EmptyProps(), Optional.empty());
+          props.condition()
+              ? props.child()
+              : new Element.Of<>(EMPTY, new EmptyProps(), Optional.empty());
 
   public record IfElseProps(boolean condition, Element thenChild, Element elseChild) {}
 
@@ -256,9 +259,7 @@ public final class Intrinsics {
   public record PortalProps(Element child, Rect area) {}
 
   public static final Component<PortalProps> PORTAL =
-      (props, ctx) ->
-          new Element.Host(
-              (c, area) -> c.queuePortal(props.child(), props.area()));
+      (props, ctx) -> new Element.Host((c, area) -> c.queuePortal(props.child(), props.area()));
 
   // -------------------- Widget wrap --------------------
 
@@ -299,8 +300,7 @@ public final class Intrinsics {
   /// memoized user components.
   public record FunctionProps(Function<RenderContext, Element> body) {}
 
-  public static final Component<FunctionProps> FUNCTION =
-      (props, ctx) -> props.body().apply(ctx);
+  public static final Component<FunctionProps> FUNCTION = (props, ctx) -> props.body().apply(ctx);
 
   // -------------------- Shared helpers --------------------
 

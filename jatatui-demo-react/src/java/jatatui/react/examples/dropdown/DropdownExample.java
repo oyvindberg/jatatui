@@ -33,16 +33,24 @@ public final class DropdownExample {
           List<String> langs = List.of("Java", "Scala", "Kotlin", "Rust", "Go");
 
           return column(
-                  length(1, text(" dropdown demo  —  Tab to cycle, Enter to open, Esc to quit ",
-                      Style.empty().withFg(Color.WHITE).withBg(Color.BLUE))),
+                  length(
+                      1,
+                      text(
+                          " dropdown demo  —  Tab to cycle, Enter to open, Esc to quit ",
+                          Style.empty().withFg(Color.WHITE).withBg(Color.BLUE))),
                   length(3, dropdown("Color", colors, color.get(), color::set, "color")),
-                  length(3, dropdown("Size",  sizes,  size.get(),  size::set,  "size")),
-                  length(3, dropdown("Lang",  langs,  lang.get(),  lang::set,  "lang")),
-                  length(2, text(
-                      "Selected: " + colors.get(color.get())
-                          + ", " + sizes.get(size.get())
-                          + ", " + langs.get(lang.get()),
-                      Style.empty().withFg(Color.GRAY))),
+                  length(3, dropdown("Size", sizes, size.get(), size::set, "size")),
+                  length(3, dropdown("Lang", langs, lang.get(), lang::set, "lang")),
+                  length(
+                      2,
+                      text(
+                          "Selected: "
+                              + colors.get(color.get())
+                              + ", "
+                              + sizes.get(size.get())
+                              + ", "
+                              + langs.get(lang.get()),
+                          Style.empty().withFg(Color.GRAY))),
                   fill(1, text("")))
               .with(p -> p.withSpacing(1).withMargin(new Margin(2, 1)));
         });

@@ -258,7 +258,8 @@ class SelectableListTest {
     h.renderer.dispatchMouse(new MouseEvent(2, 2, new KeyModifiers(0), MouseEvent.Kind.DOWN));
     h.render(app);
 
-    assertEquals(0, activations.get(), "second click outside double-click window does not activate");
+    assertEquals(
+        0, activations.get(), "second click outside double-click window does not activate");
   }
 
   @Test
@@ -502,11 +503,7 @@ class SelectableListTest {
             ctx ->
                 jatatui.components.Components.selectableList(
                     SelectableListProps.of(
-                            rows,
-                            r -> true,
-                            magentaRenderer,
-                            selectedIdx.get(),
-                            selectedIdx::set)
+                            rows, r -> true, magentaRenderer, selectedIdx.get(), selectedIdx::set)
                         .withFocusId("list")
                         .withAutoFocus(true)));
 

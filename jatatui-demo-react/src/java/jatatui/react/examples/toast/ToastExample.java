@@ -34,12 +34,21 @@ public final class ToastExample {
           ctx.onGlobalKey(new KeyCode.Char('c'), toasts::dismissAll);
 
           return column(
-                  length(1, text(" toast demo  —  i / s / w / e to add a toast, c to clear, Esc to quit ",
-                      Style.empty().withFg(Color.WHITE).withBg(Color.BLUE))),
-                  length(2, text("Toasts auto-dismiss after 3 seconds.",
-                      Style.empty().withFg(Color.GRAY))),
-                  fill(1, text("Press i, s, w, e to add. Press c to clear all.",
-                      Style.empty().withFg(Color.WHITE))))
+                  length(
+                      1,
+                      text(
+                          " toast demo  —  i / s / w / e to add a toast, c to clear, Esc to quit ",
+                          Style.empty().withFg(Color.WHITE).withBg(Color.BLUE))),
+                  length(
+                      2,
+                      text(
+                          "Toasts auto-dismiss after 3 seconds.",
+                          Style.empty().withFg(Color.GRAY))),
+                  fill(
+                      1,
+                      text(
+                          "Press i, s, w, e to add. Press c to clear all.",
+                          Style.empty().withFg(Color.WHITE))))
               .with(p -> p.withSpacing(1).withMargin(new Margin(2, 1)));
         });
   }

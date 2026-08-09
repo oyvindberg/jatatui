@@ -41,7 +41,7 @@ public final class Picker {
   public static <T> Element of(PickerProps<T> props) {
     return component(
         ctx -> {
-          State<String> query       = ctx.useState(() -> "");
+          State<String> query = ctx.useState(() -> "");
           State<Integer> selectedIdx = ctx.useState(() -> 0);
 
           // Forcibly claim focus for the query field on mount. The text input registers with
@@ -53,10 +53,11 @@ public final class Picker {
           ctx.useEffect(() -> ctx.focus(QUERY_FOCUS_ID));
 
           List<T> results = props.filter().apply(query.get());
-          int cap         = Math.min(props.maxVisible(), results.size());
-          List<T> capped  = results.subList(0, cap);
+          int cap = Math.min(props.maxVisible(), results.size());
+          List<T> capped = results.subList(0, cap);
 
-          int sel = capped.isEmpty() ? 0 : Math.max(0, Math.min(selectedIdx.get(), capped.size() - 1));
+          int sel =
+              capped.isEmpty() ? 0 : Math.max(0, Math.min(selectedIdx.get(), capped.size() - 1));
 
           ctx.onKey(
               new KeyCode.Esc(),
@@ -97,9 +98,14 @@ public final class Picker {
                           .withFocusId(QUERY_FOCUS_ID)
                           .withAutoFocus(true)));
 
-          Element resultsPane = capped.isEmpty()
-              ? fill(1, text("  no matches", Style.empty().withFg(new jatatui.core.style.Color.DarkGray())))
-              : fill(1, resultRows(props, capped, sel));
+          Element resultsPane =
+              capped.isEmpty()
+                  ? fill(
+                      1,
+                      text(
+                          "  no matches",
+                          Style.empty().withFg(new jatatui.core.style.Color.DarkGray())))
+                  : fill(1, resultRows(props, capped, sel));
 
           Element modalBody;
           if (props.hint().isPresent()) {
@@ -157,7 +163,7 @@ public final class Picker {
     Element[] rows = new Element[items.size()];
     for (int i = 0; i < items.size(); i++) {
       final int idx = i;
-      final T item  = items.get(i);
+      final T item = items.get(i);
       final boolean selected = idx == selectedIdx;
       rows[i] =
           length(

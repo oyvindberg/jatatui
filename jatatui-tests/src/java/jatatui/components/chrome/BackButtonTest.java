@@ -18,7 +18,8 @@ class BackButtonTest {
   void click_inside_chip_invokes_back() throws IOException {
     AtomicInteger backCount = new AtomicInteger();
     Element app =
-        column(length(BackButton.HEIGHT, BackButton.of("sources", backCount::incrementAndGet)),
+        column(
+                length(BackButton.HEIGHT, BackButton.of("sources", backCount::incrementAndGet)),
                 fill(1, text("")))
             .with(p -> p.withSpacing(0).withMargin(new Margin(0, 0)));
 
@@ -34,7 +35,8 @@ class BackButtonTest {
   void click_past_chip_edge_does_not_invoke_back() throws IOException {
     AtomicInteger backCount = new AtomicInteger();
     Element app =
-        column(length(BackButton.HEIGHT, BackButton.of("x", backCount::incrementAndGet)),
+        column(
+                length(BackButton.HEIGHT, BackButton.of("x", backCount::incrementAndGet)),
                 fill(1, text("")))
             .with(p -> p.withSpacing(0).withMargin(new Margin(0, 0)));
 

@@ -54,23 +54,322 @@ public record TextInputProps(
         Style.empty().withFg(new jatatui.core.style.Color.Yellow()));
   }
 
-  public TextInputProps withValue(String value) { return copy(value, onChange, placeholder, title, focusId, autoFocus, focusOnClick, onSubmit, onCancel, style, focusedStyle, placeholderStyle, cursorStyle, borderStyle, focusedBorderStyle); }
-  public TextInputProps withOnChange(Consumer<String> onChange) { return copy(value, onChange, placeholder, title, focusId, autoFocus, focusOnClick, onSubmit, onCancel, style, focusedStyle, placeholderStyle, cursorStyle, borderStyle, focusedBorderStyle); }
-  public TextInputProps withPlaceholder(String placeholder) { return copy(value, onChange, placeholder, title, focusId, autoFocus, focusOnClick, onSubmit, onCancel, style, focusedStyle, placeholderStyle, cursorStyle, borderStyle, focusedBorderStyle); }
-  public TextInputProps withTitle(String title) { return copy(value, onChange, placeholder, title, focusId, autoFocus, focusOnClick, onSubmit, onCancel, style, focusedStyle, placeholderStyle, cursorStyle, borderStyle, focusedBorderStyle); }
-  public TextInputProps withFocusId(String focusId) { return copy(value, onChange, placeholder, title, Optional.of(focusId), autoFocus, focusOnClick, onSubmit, onCancel, style, focusedStyle, placeholderStyle, cursorStyle, borderStyle, focusedBorderStyle); }
-  public TextInputProps withAutoFocus(boolean autoFocus) { return copy(value, onChange, placeholder, title, focusId, autoFocus, focusOnClick, onSubmit, onCancel, style, focusedStyle, placeholderStyle, cursorStyle, borderStyle, focusedBorderStyle); }
-  public TextInputProps withFocusOnClick(boolean focusOnClick) { return copy(value, onChange, placeholder, title, focusId, autoFocus, focusOnClick, onSubmit, onCancel, style, focusedStyle, placeholderStyle, cursorStyle, borderStyle, focusedBorderStyle); }
-  public TextInputProps withOnSubmit(Runnable onSubmit) { return copy(value, onChange, placeholder, title, focusId, autoFocus, focusOnClick, Optional.of(onSubmit), onCancel, style, focusedStyle, placeholderStyle, cursorStyle, borderStyle, focusedBorderStyle); }
-  public TextInputProps withOnCancel(Runnable onCancel) { return copy(value, onChange, placeholder, title, focusId, autoFocus, focusOnClick, onSubmit, Optional.of(onCancel), style, focusedStyle, placeholderStyle, cursorStyle, borderStyle, focusedBorderStyle); }
-  public TextInputProps withStyle(Style style) { return copy(value, onChange, placeholder, title, focusId, autoFocus, focusOnClick, onSubmit, onCancel, style, focusedStyle, placeholderStyle, cursorStyle, borderStyle, focusedBorderStyle); }
-  public TextInputProps withFocusedStyle(Style focusedStyle) { return copy(value, onChange, placeholder, title, focusId, autoFocus, focusOnClick, onSubmit, onCancel, style, focusedStyle, placeholderStyle, cursorStyle, borderStyle, focusedBorderStyle); }
-  public TextInputProps withPlaceholderStyle(Style placeholderStyle) { return copy(value, onChange, placeholder, title, focusId, autoFocus, focusOnClick, onSubmit, onCancel, style, focusedStyle, placeholderStyle, cursorStyle, borderStyle, focusedBorderStyle); }
-  public TextInputProps withCursorStyle(Style cursorStyle) { return copy(value, onChange, placeholder, title, focusId, autoFocus, focusOnClick, onSubmit, onCancel, style, focusedStyle, placeholderStyle, cursorStyle, borderStyle, focusedBorderStyle); }
-  public TextInputProps withBorderStyle(Style borderStyle) { return copy(value, onChange, placeholder, title, focusId, autoFocus, focusOnClick, onSubmit, onCancel, style, focusedStyle, placeholderStyle, cursorStyle, borderStyle, focusedBorderStyle); }
-  public TextInputProps withFocusedBorderStyle(Style focusedBorderStyle) { return copy(value, onChange, placeholder, title, focusId, autoFocus, focusOnClick, onSubmit, onCancel, style, focusedStyle, placeholderStyle, cursorStyle, borderStyle, focusedBorderStyle); }
+  public TextInputProps withValue(String value) {
+    return copy(
+        value,
+        onChange,
+        placeholder,
+        title,
+        focusId,
+        autoFocus,
+        focusOnClick,
+        onSubmit,
+        onCancel,
+        style,
+        focusedStyle,
+        placeholderStyle,
+        cursorStyle,
+        borderStyle,
+        focusedBorderStyle);
+  }
 
-  private static TextInputProps copy(String value, Consumer<String> onChange, String placeholder, String title, Optional<String> focusId, boolean autoFocus, boolean focusOnClick, Optional<Runnable> onSubmit, Optional<Runnable> onCancel, Style style, Style focusedStyle, Style placeholderStyle, Style cursorStyle, Style borderStyle, Style focusedBorderStyle) {
-    return new TextInputProps(value, onChange, placeholder, title, focusId, autoFocus, focusOnClick, onSubmit, onCancel, style, focusedStyle, placeholderStyle, cursorStyle, borderStyle, focusedBorderStyle);
+  public TextInputProps withOnChange(Consumer<String> onChange) {
+    return copy(
+        value,
+        onChange,
+        placeholder,
+        title,
+        focusId,
+        autoFocus,
+        focusOnClick,
+        onSubmit,
+        onCancel,
+        style,
+        focusedStyle,
+        placeholderStyle,
+        cursorStyle,
+        borderStyle,
+        focusedBorderStyle);
+  }
+
+  public TextInputProps withPlaceholder(String placeholder) {
+    return copy(
+        value,
+        onChange,
+        placeholder,
+        title,
+        focusId,
+        autoFocus,
+        focusOnClick,
+        onSubmit,
+        onCancel,
+        style,
+        focusedStyle,
+        placeholderStyle,
+        cursorStyle,
+        borderStyle,
+        focusedBorderStyle);
+  }
+
+  public TextInputProps withTitle(String title) {
+    return copy(
+        value,
+        onChange,
+        placeholder,
+        title,
+        focusId,
+        autoFocus,
+        focusOnClick,
+        onSubmit,
+        onCancel,
+        style,
+        focusedStyle,
+        placeholderStyle,
+        cursorStyle,
+        borderStyle,
+        focusedBorderStyle);
+  }
+
+  public TextInputProps withFocusId(String focusId) {
+    return copy(
+        value,
+        onChange,
+        placeholder,
+        title,
+        Optional.of(focusId),
+        autoFocus,
+        focusOnClick,
+        onSubmit,
+        onCancel,
+        style,
+        focusedStyle,
+        placeholderStyle,
+        cursorStyle,
+        borderStyle,
+        focusedBorderStyle);
+  }
+
+  public TextInputProps withAutoFocus(boolean autoFocus) {
+    return copy(
+        value,
+        onChange,
+        placeholder,
+        title,
+        focusId,
+        autoFocus,
+        focusOnClick,
+        onSubmit,
+        onCancel,
+        style,
+        focusedStyle,
+        placeholderStyle,
+        cursorStyle,
+        borderStyle,
+        focusedBorderStyle);
+  }
+
+  public TextInputProps withFocusOnClick(boolean focusOnClick) {
+    return copy(
+        value,
+        onChange,
+        placeholder,
+        title,
+        focusId,
+        autoFocus,
+        focusOnClick,
+        onSubmit,
+        onCancel,
+        style,
+        focusedStyle,
+        placeholderStyle,
+        cursorStyle,
+        borderStyle,
+        focusedBorderStyle);
+  }
+
+  public TextInputProps withOnSubmit(Runnable onSubmit) {
+    return copy(
+        value,
+        onChange,
+        placeholder,
+        title,
+        focusId,
+        autoFocus,
+        focusOnClick,
+        Optional.of(onSubmit),
+        onCancel,
+        style,
+        focusedStyle,
+        placeholderStyle,
+        cursorStyle,
+        borderStyle,
+        focusedBorderStyle);
+  }
+
+  public TextInputProps withOnCancel(Runnable onCancel) {
+    return copy(
+        value,
+        onChange,
+        placeholder,
+        title,
+        focusId,
+        autoFocus,
+        focusOnClick,
+        onSubmit,
+        Optional.of(onCancel),
+        style,
+        focusedStyle,
+        placeholderStyle,
+        cursorStyle,
+        borderStyle,
+        focusedBorderStyle);
+  }
+
+  public TextInputProps withStyle(Style style) {
+    return copy(
+        value,
+        onChange,
+        placeholder,
+        title,
+        focusId,
+        autoFocus,
+        focusOnClick,
+        onSubmit,
+        onCancel,
+        style,
+        focusedStyle,
+        placeholderStyle,
+        cursorStyle,
+        borderStyle,
+        focusedBorderStyle);
+  }
+
+  public TextInputProps withFocusedStyle(Style focusedStyle) {
+    return copy(
+        value,
+        onChange,
+        placeholder,
+        title,
+        focusId,
+        autoFocus,
+        focusOnClick,
+        onSubmit,
+        onCancel,
+        style,
+        focusedStyle,
+        placeholderStyle,
+        cursorStyle,
+        borderStyle,
+        focusedBorderStyle);
+  }
+
+  public TextInputProps withPlaceholderStyle(Style placeholderStyle) {
+    return copy(
+        value,
+        onChange,
+        placeholder,
+        title,
+        focusId,
+        autoFocus,
+        focusOnClick,
+        onSubmit,
+        onCancel,
+        style,
+        focusedStyle,
+        placeholderStyle,
+        cursorStyle,
+        borderStyle,
+        focusedBorderStyle);
+  }
+
+  public TextInputProps withCursorStyle(Style cursorStyle) {
+    return copy(
+        value,
+        onChange,
+        placeholder,
+        title,
+        focusId,
+        autoFocus,
+        focusOnClick,
+        onSubmit,
+        onCancel,
+        style,
+        focusedStyle,
+        placeholderStyle,
+        cursorStyle,
+        borderStyle,
+        focusedBorderStyle);
+  }
+
+  public TextInputProps withBorderStyle(Style borderStyle) {
+    return copy(
+        value,
+        onChange,
+        placeholder,
+        title,
+        focusId,
+        autoFocus,
+        focusOnClick,
+        onSubmit,
+        onCancel,
+        style,
+        focusedStyle,
+        placeholderStyle,
+        cursorStyle,
+        borderStyle,
+        focusedBorderStyle);
+  }
+
+  public TextInputProps withFocusedBorderStyle(Style focusedBorderStyle) {
+    return copy(
+        value,
+        onChange,
+        placeholder,
+        title,
+        focusId,
+        autoFocus,
+        focusOnClick,
+        onSubmit,
+        onCancel,
+        style,
+        focusedStyle,
+        placeholderStyle,
+        cursorStyle,
+        borderStyle,
+        focusedBorderStyle);
+  }
+
+  private static TextInputProps copy(
+      String value,
+      Consumer<String> onChange,
+      String placeholder,
+      String title,
+      Optional<String> focusId,
+      boolean autoFocus,
+      boolean focusOnClick,
+      Optional<Runnable> onSubmit,
+      Optional<Runnable> onCancel,
+      Style style,
+      Style focusedStyle,
+      Style placeholderStyle,
+      Style cursorStyle,
+      Style borderStyle,
+      Style focusedBorderStyle) {
+    return new TextInputProps(
+        value,
+        onChange,
+        placeholder,
+        title,
+        focusId,
+        autoFocus,
+        focusOnClick,
+        onSubmit,
+        onCancel,
+        style,
+        focusedStyle,
+        placeholderStyle,
+        cursorStyle,
+        borderStyle,
+        focusedBorderStyle);
   }
 }

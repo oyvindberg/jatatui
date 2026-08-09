@@ -42,8 +42,7 @@ class TextInputClickToFocusTest {
     assertEquals(List.of(true, false), focusFlags, "first input is auto-focused");
 
     // Click in the second input's area (rows 3..5 of the column).
-    h.events.dispatchMouse(
-        new MouseEvent(5, 4, new KeyModifiers(0), MouseEvent.Kind.DOWN));
+    h.events.dispatchMouse(new MouseEvent(5, 4, new KeyModifiers(0), MouseEvent.Kind.DOWN));
     focusFlags.clear();
     h.render(app);
     assertEquals(List.of(false, true), focusFlags, "click on input b transfers focus");
@@ -72,15 +71,19 @@ class TextInputClickToFocusTest {
     h.render(app);
     assertEquals(List.of(true, false), focusFlags);
 
-    h.events.dispatchMouse(
-        new MouseEvent(5, 4, new KeyModifiers(0), MouseEvent.Kind.DOWN));
+    h.events.dispatchMouse(new MouseEvent(5, 4, new KeyModifiers(0), MouseEvent.Kind.DOWN));
     focusFlags.clear();
     h.render(app);
-    assertEquals(List.of(true, false), focusFlags, "focus stays on first when click-to-focus is disabled");
+    assertEquals(
+        List.of(true, false), focusFlags, "focus stays on first when click-to-focus is disabled");
   }
 
   static Element namedField(
-      jatatui.react.RenderContext outerCtx, List<Boolean> flags, List<String> values, int idx, String id) {
+      jatatui.react.RenderContext outerCtx,
+      List<Boolean> flags,
+      List<String> values,
+      int idx,
+      String id) {
     return component(
         ctx -> {
           flags.add(ctx.useFocus(java.util.Optional.of(id), idx == 0));
@@ -90,7 +93,11 @@ class TextInputClickToFocusTest {
   }
 
   static Element namedFieldNoClick(
-      jatatui.react.RenderContext outerCtx, List<Boolean> flags, List<String> values, int idx, String id) {
+      jatatui.react.RenderContext outerCtx,
+      List<Boolean> flags,
+      List<String> values,
+      int idx,
+      String id) {
     return component(
         ctx -> {
           flags.add(ctx.useFocus(java.util.Optional.of(id), idx == 0));

@@ -49,17 +49,13 @@ public final class ConfirmDialog {
             fill(1, empty()),
             length(
                 1,
-                text(
-                    "  enter confirm · esc cancel",
-                    Style.empty().withFg(new Color.DarkGray()))));
+                text("  enter confirm · esc cancel", Style.empty().withFg(new Color.DarkGray()))));
 
     Style boxStyle =
         Style.empty()
             .withFg(danger ? new Color.Red() : new Color.Cyan())
             .withAddModifier(Modifier.BOLD);
     return Modal.of(
-        ModalProps.of(open, title, body, onCancel)
-            .withSize(DEFAULT_SIZE)
-            .withBoxStyle(boxStyle));
+        ModalProps.of(open, title, body, onCancel).withSize(DEFAULT_SIZE).withBoxStyle(boxStyle));
   }
 }

@@ -50,8 +50,7 @@ class ReconciliationTest {
 
     showA.set(false);
     h.render(wrapper);
-    assertEquals(
-        "hello", seen.get(), "different component at same fiber → fresh useState initial");
+    assertEquals("hello", seen.get(), "different component at same fiber → fresh useState initial");
 
     showA.set(true);
     h.render(wrapper);
@@ -123,18 +122,24 @@ class ReconciliationTest {
         (props, ctx) ->
             text(
                 "A:"
-                    + (Integer) ctx.useState(() -> {
-                      seen.set("A-init");
-                      return props * 10;
-                    }).get());
+                    + (Integer)
+                        ctx.useState(
+                                () -> {
+                                  seen.set("A-init");
+                                  return props * 10;
+                                })
+                            .get());
     Component<Integer> compB =
         (props, ctx) ->
             text(
                 "B:"
-                    + (Integer) ctx.useState(() -> {
-                      seen.set("B-init");
-                      return props + 100;
-                    }).get());
+                    + (Integer)
+                        ctx.useState(
+                                () -> {
+                                  seen.set("B-init");
+                                  return props + 100;
+                                })
+                            .get());
 
     AtomicBoolean useA = new AtomicBoolean(true);
     Element wrapper = component(ctx -> useA.get() ? apply(compA, 5) : apply(compB, 7));

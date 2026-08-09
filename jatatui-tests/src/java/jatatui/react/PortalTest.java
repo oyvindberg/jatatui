@@ -19,15 +19,12 @@ class PortalTest {
   @Test
   void portal_renders_after_main_pass() throws IOException {
     // Main pass writes "BG" to the buffer; portal writes "FG" at same area. Portal must win.
-    Element child =
-        text("FG", Style.empty().withFg(Color.WHITE).withBg(Color.BLUE));
-    Element app =
-        column(
-            text("BG"),
-            portal(child, new Rect(0, 0, 5, 1)));
+    Element child = text("FG", Style.empty().withFg(Color.WHITE).withBg(Color.BLUE));
+    Element app = column(text("BG"), portal(child, new Rect(0, 0, 5, 1)));
     String[] rows = renderToText(app, 10, 3);
     // The first row should now be "FG" (portal overpainted), not "BG".
-    assertTrue(rows[0].startsWith("FG"), "portal must paint over main pass; got: '" + rows[0] + "'");
+    assertTrue(
+        rows[0].startsWith("FG"), "portal must paint over main pass; got: '" + rows[0] + "'");
   }
 
   @Test
@@ -64,7 +61,8 @@ class PortalTest {
         });
 
     // Click inside the portal area
-    MouseEvent click = new MouseEvent(2, 5, new tui.crossterm.KeyModifiers(0), MouseEvent.Kind.DOWN);
+    MouseEvent click =
+        new MouseEvent(2, 5, new tui.crossterm.KeyModifiers(0), MouseEvent.Kind.DOWN);
     events.dispatchMouse(click);
     assertTrue(parentSawClick.get(), "click on portal must bubble to declaring parent");
   }
@@ -73,9 +71,7 @@ class PortalTest {
   void multiple_portals_render_in_declaration_order() throws IOException {
     // Two portals at the same area; second overwrites first.
     Element app =
-        column(
-            portal(text("AA"), new Rect(0, 0, 5, 1)),
-            portal(text("BB"), new Rect(0, 0, 5, 1)));
+        column(portal(text("AA"), new Rect(0, 0, 5, 1)), portal(text("BB"), new Rect(0, 0, 5, 1)));
     String[] rows = renderToText(app, 10, 3);
     assertTrue(rows[0].startsWith("BB"), "second portal wins; got: '" + rows[0] + "'");
   }

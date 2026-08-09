@@ -42,14 +42,7 @@ class ConfirmDialogTest {
     AtomicInteger cancelCount = new AtomicInteger();
     Element app =
         ConfirmDialog.of(
-            true,
-            " Delete ",
-            "?",
-            "Yes",
-            "No",
-            false,
-            () -> {},
-            cancelCount::incrementAndGet);
+            true, " Delete ", "?", "Yes", "No", false, () -> {}, cancelCount::incrementAndGet);
 
     TestHarness h = new TestHarness(100, 30);
     h.render(app);
@@ -63,14 +56,7 @@ class ConfirmDialogTest {
     AtomicInteger cancelCount = new AtomicInteger();
     Element app =
         ConfirmDialog.of(
-            false,
-            " Delete ",
-            "?",
-            "Yes",
-            "No",
-            false,
-            () -> {},
-            cancelCount::incrementAndGet);
+            false, " Delete ", "?", "Yes", "No", false, () -> {}, cancelCount::incrementAndGet);
 
     TestHarness h = new TestHarness(100, 30);
     h.render(app);
