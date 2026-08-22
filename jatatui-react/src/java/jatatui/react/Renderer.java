@@ -1,6 +1,10 @@
 package jatatui.react;
 
 import jatatui.core.terminal.Frame;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /// Production-supported render engine for embedding jatatui-react in a host app that owns its own
@@ -50,6 +54,24 @@ public final class Renderer {
   private final FocusManager focus;
   private final AtomicBoolean dirty;
 
+  // ---- Frame tick source (drives useFrame) ----
+
+  /// Shared daemon scheduler for the frame tick source. One thread per process regardless of how
+  /// many Renderers or `useFrame` hooks are live — matches [RenderContext]'s timeout scheduler.
+  private static final ScheduledExecutorService FRAME_SCHEDULER =
+      Executors.newSingleThreadScheduledExecutor(
+          r -> {
+            Thread t = new Thread(r, "jatatui-react-frames");
+            t.setDaemon(true);
+            return t;
+          });
+
+  /// The rate the tick source is currently running at, or 0 when no `useFrame` is mounted.
+  private int currentFrameHz = 0;
+
+  /// The live periodic task that `requestRerender`s at `currentFrameHz`, or null when stopped.
+  private ScheduledFuture<?> frameFuture;
+
   public Renderer() {
     this.events = new EventRegistry();
     this.hooks = new HookStore();
@@ -73,11 +95,14 @@ public final class Renderer {
     focus.clearFrame();
     java.util.Optional<String> focusedBefore = focus.currentlyFocused();
     RenderContext ctx = new RenderContext(frame, events, hooks, focus, this::requestRerender);
-    events.recordBounds(Fiber.root(), frame.area());
+    events.recordBounds(Fiber.root(), frame.area(), 0);
     root.render(ctx, frame.area());
     ctx.drainPortals();
     hooks.sweep();
     focus.commit();
+    // Reconcile the frame tick source to whatever `useFrame` hooks asked for this render (0 = none
+    // mounted → stop it). Runs on the render thread, so no lock needed on the future/rate.
+    reconcileFrame(ctx.frameMaxHz);
     // Screen-change case: the previously focused id wasn't re-registered this frame so commit
     // chose a new winner (or the previously focused element unmounted). Request a re-render so
     // the new winner is visible — this frame painted as if nothing were focused there.
@@ -136,6 +161,37 @@ public final class Renderer {
     return events;
   }
 
+  // ---- Frame tick source ----
+
+  /// Bring the tick source in line with the rate requested by mounted `useFrame` hooks this frame.
+  /// Idempotent when the rate is unchanged. `hz == 0` stops the source. Called on the render
+  /// thread at the end of every [#render].
+  private void reconcileFrame(int hz) {
+    if (hz == currentFrameHz) return;
+    if (frameFuture != null) {
+      frameFuture.cancel(false);
+      frameFuture = null;
+    }
+    currentFrameHz = hz;
+    if (hz > 0) {
+      long periodMs = Math.max(1L, 1000L / hz);
+      frameFuture =
+          FRAME_SCHEDULER.scheduleAtFixedRate(
+              this::requestRerender, periodMs, periodMs, TimeUnit.MILLISECONDS);
+    }
+  }
+
+  /// True while at least one `useFrame` hook is mounted (the tick source is running). [ReactApp]
+  /// reads this to shorten its input poll so frame re-renders are picked up at animation speed.
+  public boolean frameActive() {
+    return currentFrameHz > 0;
+  }
+
+  /// The rate the frame tick source is running at (frames/sec), or 0 when no `useFrame` is mounted.
+  public int frameHz() {
+    return currentFrameHz;
+  }
+
   // ---- Dirty tracking ----
 
   /// Mark a re-render pending. Threadsafe. Internal callbacks (`useState.set`, dispatchMouse /
@@ -176,6 +232,9 @@ public final class Renderer {
     hooks.cleanups.clear();
     hooks.memoCache.clear();
     hooks.touched.clear();
+    // No hooks remain, so no useFrame is mounted — stop the tick source until the next render
+    // re-establishes it. (The next render reconciles it back on if the fresh tree uses useFrame.)
+    reconcileFrame(0);
     requestRerender();
   }
 
