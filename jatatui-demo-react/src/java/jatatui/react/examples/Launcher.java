@@ -18,6 +18,7 @@ public final class Launcher {
 
   static {
     EXAMPLES.put("bubble", "jatatui.react.examples.bubble.BubbleExample");
+    EXAMPLES.put("frame", "jatatui.react.examples.frame.FrameExample");
     EXAMPLES.put("counter", "jatatui.react.examples.counter.CounterExample");
     EXAMPLES.put("list", "jatatui.react.examples.list.ListExample");
     EXAMPLES.put("table", "jatatui.react.examples.table.TableExample");

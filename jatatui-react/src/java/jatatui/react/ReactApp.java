@@ -72,9 +72,12 @@ public final class ReactApp {
       if (renderer.takeDirty()) {
         terminal.draw(frame -> renderer.render(frame, root));
       }
-      // Poll with 100ms timeout so timer-driven re-renders (toasts, animations) wake the loop
-      // promptly. Pure event-driven for app correctness — the loop body just re-checks `dirty`.
-      if (jni.poll(new Duration(0L, 100_000_000))) {
+      // Poll timeout: 100ms normally (timer-driven re-renders like toasts wake the loop promptly),
+      // but ~8ms while a `useFrame` tick source is live so its frame-rate re-renders are picked up
+      // at animation speed (~60fps-capable). Pure event-driven for app correctness — the loop body
+      // just re-checks `dirty`.
+      int pollNanos = renderer.frameActive() ? 8_000_000 : 100_000_000;
+      if (jni.poll(new Duration(0L, pollNanos))) {
         Event ev = jni.read();
         running = handle(ev);
       }

@@ -33,6 +33,12 @@ public final class RenderContext {
   final java.util.List<PortalEntry> portals = new java.util.ArrayList<>();
   Fiber fiber;
   int hookIndex;
+  /// The paint layer bounds are recorded at. 0 during the main pass; bumped per portal generation
+  /// in [#drainPortals] so portals hit-test above the content they overlap. See [EventRegistry].
+  int currentZ = 0;
+  /// The highest `hz` requested by any [#useFrame] mounted this render, or 0 if none. Read by
+  /// [Renderer] after render to drive (or stop) the frame tick source at the right rate.
+  int frameMaxHz = 0;
 
   record PortalEntry(Fiber declaringFiber, int seq, Element child, Rect area) {}
 
@@ -81,7 +87,7 @@ public final class RenderContext {
     fiber = prev.child(index);
     hookIndex = 0;
     hooks.touched.add(fiber);
-    events.recordBounds(fiber, area);
+    events.recordBounds(fiber, area, currentZ);
     reconcile(fiber, child);
     try {
       child.render(this, area);
@@ -97,7 +103,7 @@ public final class RenderContext {
     fiber = prev.child(key);
     hookIndex = 0;
     hooks.touched.add(fiber);
-    events.recordBounds(fiber, area);
+    events.recordBounds(fiber, area, currentZ);
     reconcile(fiber, child);
     try {
       child.render(this, area);
@@ -235,6 +241,54 @@ public final class RenderContext {
     java.util.concurrent.ScheduledFuture<?> future;
   }
 
+  /// Animation frame hook — the declarative alternative to a hand-rolled render loop. Drives
+  /// `onTick` at up to `hz` frames per second, passing the elapsed milliseconds since this hook's
+  /// previous tick (so animation math is frame-rate independent — advance by `elapsed`, not a
+  /// fixed step).
+  ///
+  /// Mechanics, mirroring [#useTimeout] but self-re-arming:
+  ///   - The hook contributes its `hz` to this render's [#frameMaxHz]. After render, [Renderer]
+  ///     runs a single shared tick source at the highest `hz` any mounted `useFrame` asked for,
+  ///     which [#requestRerender]s at that cadence. While a frame source is live, [ReactApp]
+  ///     shortens its input poll so those re-renders are picked up promptly (~60fps-capable).
+  ///   - `onTick` runs synchronously here, on the render thread, at the next render — exactly like
+  ///     `useTimeout`'s callback. So `state.set(...)` from inside `onTick` is safe.
+  ///   - A tick fires only once this hook's own `1000/hz` ms period has elapsed since its last
+  ///     tick, so a slow (e.g. 10hz) hook coexisting with a fast (60hz) one still ticks at its own
+  ///     rate even though the shared source runs at 60hz.
+  ///   - Auto-cancels on unmount: an unmounted fiber stops contributing to [#frameMaxHz], so the
+  ///     tick source winds down (or stops) automatically; its hook state is swept.
+  ///
+  /// The first render after mount does not tick — it establishes the baseline timestamp; the first
+  /// `onTick` arrives one period later.
+  public void useFrame(int hz, Consumer<Long> onTick) {
+    if (hz <= 0) throw new IllegalArgumentException("useFrame hz must be positive, got " + hz);
+    HookKey key = new HookKey(fiber, hookIndex++);
+    FrameHookState state = (FrameHookState) hooks.values.get(key);
+    long now = System.currentTimeMillis();
+    if (state == null) {
+      state = new FrameHookState();
+      state.lastTickMs = now;
+      hooks.values.put(key, state);
+    }
+
+    // Advertise our rate so Renderer runs the shared tick source fast enough for us.
+    frameMaxHz = Math.max(frameMaxHz, hz);
+
+    long periodMs = Math.max(1L, 1000L / hz);
+    long elapsed = now - state.lastTickMs;
+    if (elapsed >= periodMs) {
+      state.lastTickMs = now;
+      onTick.accept(elapsed);
+    }
+  }
+
+  /// Mutable hook-store entry for [#useFrame]. Tracks the timestamp of this hook's last tick so
+  /// each hook can pace itself independently of the shared tick source's rate.
+  static final class FrameHookState {
+    long lastTickMs;
+  }
+
   /// Shared daemon executor for [#useTimeout]. One thread per process, regardless of how many
   /// hooks are armed. Spawning a thread per timer would not scale; this matches what
   /// [jatatui.components.toast.ToastsProvider] already does for its own timer needs.
@@ -260,7 +314,13 @@ public final class RenderContext {
   /// Recursively drains portals queued by portal children (last-wins z-order). Called by
   /// [ReactApp] after the main render pass.
   void drainPortals() {
+    int generation = currentZ;
     while (!portals.isEmpty()) {
+      // Each generation of portals paints above the previous one, so bounds it records hit-test
+      // above everything painted so far. Portals queued *by* this batch drain in the next
+      // iteration at a still-higher layer (nested overlays stack).
+      generation++;
+      currentZ = generation;
       java.util.List<PortalEntry> batch = new java.util.ArrayList<>(portals);
       portals.clear();
       for (PortalEntry pe : batch) {
@@ -275,6 +335,7 @@ public final class RenderContext {
         }
       }
     }
+    currentZ = 0;
   }
 
   /// Read the value of `context` from the nearest enclosing provider in the Element tree, or
@@ -363,6 +424,63 @@ public final class RenderContext {
 
   public void onScroll(Consumer<MouseEvent> handler) {
     events.boundsOf(fiber).ifPresent(r -> events.addScroll(fiber, r, handler));
+  }
+
+  /// Register a hover handler. Fires on mouse-move (`MOVE`) over `area` — i.e. whenever the
+  /// pointer, not pressing any button, is over this widget. Route it to `useState` to drive a
+  /// hover-highlight. Bubbles like click; the topmost widget under the pointer gets it first.
+  ///
+  /// Hover is delivered per move, not as enter/leave edges: on each move the widget under the
+  /// pointer is notified. Track "currently hovered" yourself (set state on hover, and the next
+  /// move over a different widget updates it).
+  public void onHover(Rect area, Consumer<MouseEvent> handler) {
+    events.addHover(fiber, area, handler);
+  }
+
+  public void onHover(Consumer<MouseEvent> handler) {
+    events.boundsOf(fiber).ifPresent(r -> events.addHover(fiber, r, handler));
+  }
+
+  public void onHover(Rect area, Runnable handler) {
+    events.addHover(fiber, area, e -> handler.run());
+  }
+
+  public void onHover(Runnable handler) {
+    events.boundsOf(fiber).ifPresent(r -> events.addHover(fiber, r, e -> handler.run()));
+  }
+
+  /// Register a drag handler. Fires on `DRAG` (pointer moved with a button held) over `area`. Read
+  /// [MouseEvent#x] / [MouseEvent#y] to track the pointer — this is what scrubs a timeline or
+  /// drags a splitter. Bubbles like click.
+  ///
+  /// Drag is area-scoped like every other mouse handler: it fires for drags whose current point is
+  /// inside `area`. For a scrub/resize interaction that must keep tracking when the pointer strays,
+  /// register the handler on the enclosing panel's area (via the no-arg overload) rather than on a
+  /// narrow handle, so the whole panel receives the drag.
+  public void onDrag(Rect area, Consumer<MouseEvent> handler) {
+    events.addDrag(fiber, area, handler);
+  }
+
+  public void onDrag(Consumer<MouseEvent> handler) {
+    events.boundsOf(fiber).ifPresent(r -> events.addDrag(fiber, r, handler));
+  }
+
+  /// Register a drag-end handler. Fires on `UP` (button released) over `area` — the natural place
+  /// to commit a scrub/resize or clear a "dragging" flag. Bubbles like click.
+  public void onDragEnd(Rect area, Consumer<MouseEvent> handler) {
+    events.addDragEnd(fiber, area, handler);
+  }
+
+  public void onDragEnd(Consumer<MouseEvent> handler) {
+    events.boundsOf(fiber).ifPresent(r -> events.addDragEnd(fiber, r, handler));
+  }
+
+  public void onDragEnd(Rect area, Runnable handler) {
+    events.addDragEnd(fiber, area, e -> handler.run());
+  }
+
+  public void onDragEnd(Runnable handler) {
+    events.boundsOf(fiber).ifPresent(r -> events.addDragEnd(fiber, r, e -> handler.run()));
   }
 
   /// Register a key handler. Fires when this fiber (or one of its descendants) is focused AND the
