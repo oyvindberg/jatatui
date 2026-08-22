@@ -11,8 +11,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /// screens — see [#resetState]). Per frame:
 ///
 /// 1. From inside `terminal.draw(frame -> { ... })`: call [#render]
-/// 2. After `terminal.draw` returns: dispatch any input events via [#dispatchKey] / [#dispatchMouse],
-///    cycle focus via [#tab] / [#shiftTab], check [#takeDirty] for the next iteration.
+/// 2. After `terminal.draw` returns: dispatch any input events via [#dispatchKey] /
+///    [#dispatchMouse], cycle focus via [#tab] / [#shiftTab], check [#takeDirty] for the next
+///    iteration.
 ///
 /// Example loop skeleton:
 /// ```

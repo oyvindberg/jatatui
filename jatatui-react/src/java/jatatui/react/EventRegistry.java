@@ -13,9 +13,10 @@ import java.util.function.Consumer;
 ///
 /// Storage is bucketed by [Fiber] (not flat) so dispatch can walk the parent chain of a focused or
 /// hit-tested target. This is the React-DOM bubbling model:
-///   - **Mouse**: hit-test finds the deepest Fiber whose recorded bounds contain (x,y); we then walk
-///     from that Fiber up to root, firing matching click/scroll handlers along the way. Handlers
-///     can call [MouseEvent#stopPropagation] to prevent further ancestors from being notified.
+///   - **Mouse**: hit-test finds the deepest Fiber whose recorded bounds contain (x,y); we then
+///     walk from that Fiber up to root, firing matching click/scroll handlers along the way.
+///     Handlers can call [MouseEvent#stopPropagation] to prevent further ancestors from being
+///     notified.
 ///   - **Key**: walk from the focused Fiber up to root, firing matching key handlers. Then global
 ///     key handlers fire (lowest priority — last-resort shortcuts). [KeyEvent#stopPropagation]
 ///     stops the chain anywhere along it.
