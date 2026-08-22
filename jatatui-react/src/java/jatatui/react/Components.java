@@ -121,8 +121,7 @@ public final class Components {
   public static Element.Of<Intrinsics.RowProps> row(Element... children) {
     return new Element.Of<>(
         Intrinsics.ROW,
-        new Intrinsics.RowProps(
-            List.of(children), Flex.Legacy, Spacing.DEFAULT, new Margin(0, 0)),
+        new Intrinsics.RowProps(List.of(children), Flex.Legacy, Spacing.DEFAULT, new Margin(0, 0)),
         Optional.empty());
   }
 
@@ -182,16 +181,16 @@ public final class Components {
 
   public static Element ifElse(boolean condition, Element then_, Element else_) {
     return new Element.Of<>(
-        Intrinsics.IF_ELSE,
-        new Intrinsics.IfElseProps(condition, then_, else_),
-        Optional.empty());
+        Intrinsics.IF_ELSE, new Intrinsics.IfElseProps(condition, then_, else_), Optional.empty());
   }
 
   @SuppressWarnings({"rawtypes", "unchecked"})
   public static <T> Element forEach(
       List<T> items, Function<T, String> keyFn, Function<T, Element> render) {
     return new Element.Of<>(
-        Intrinsics.FOR_EACH, new Intrinsics.ForEachProps(items, keyFn, render, 1), Optional.empty());
+        Intrinsics.FOR_EACH,
+        new Intrinsics.ForEachProps(items, keyFn, render, 1),
+        Optional.empty());
   }
 
   @SuppressWarnings({"rawtypes", "unchecked"})

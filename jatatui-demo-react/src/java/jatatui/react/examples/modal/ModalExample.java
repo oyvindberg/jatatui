@@ -29,28 +29,41 @@ public final class ModalExample {
           ctx.onGlobalKey(new KeyCode.Char('o'), () -> open.set(true));
 
           return column(
-                  length(1, text(" modal demo  —  press 'o' to open, Esc/click outside to close, q to quit ",
-                      Style.empty().withFg(Color.WHITE).withBg(Color.BLUE))),
-                  length(3,
-                      button("  [ Open Modal ]  ",
+                  length(
+                      1,
+                      text(
+                          " modal demo  —  press 'o' to open, Esc/click outside to close, q to quit"
+                              + " ",
+                          Style.empty().withFg(Color.WHITE).withBg(Color.BLUE))),
+                  length(
+                      3,
+                      button(
+                          "  [ Open Modal ]  ",
                           Style.empty().withFg(Color.YELLOW),
                           () -> open.set(true))),
-                  fill(1,
-                      box(" Background content ",
+                  fill(
+                      1,
+                      box(
+                          " Background content ",
                           Borders.ALL,
                           text("This is the underlying UI. The modal will paint over it."),
                           text(""),
                           text("Try clicking through the backdrop — the click is intercepted."),
                           text("Try clicking inside the modal box — the click stays local."))),
-                  modal(open.get(), " Modal Title ",
+                  modal(
+                      open.get(),
+                      " Modal Title ",
                       column(
                           text("This is the modal body."),
                           text(""),
                           text("Esc dismisses, click outside dismisses,"),
                           text("clicks inside stay local."),
                           text(""),
-                          length(1, text("  [Press Esc or click outside]",
-                              Style.empty().withFg(Color.GRAY)))),
+                          length(
+                              1,
+                              text(
+                                  "  [Press Esc or click outside]",
+                                  Style.empty().withFg(Color.GRAY)))),
                       () -> open.set(false)))
               .with(p -> p.withSpacing(1).withMargin(new Margin(2, 1)));
         });

@@ -58,7 +58,7 @@ class EventRegistryDispatchTest {
 
     List<String> log = new ArrayList<>();
     r.addKey(inner, new KeyCode.Char('a'), e -> log.add("inner-a"));
-    r.addKey(middle, new KeyCode.Char('b'), e -> log.add("middle-b"));    // wrong key
+    r.addKey(middle, new KeyCode.Char('b'), e -> log.add("middle-b")); // wrong key
     r.addKey(outer, new KeyCode.Char('a'), e -> log.add("outer-a"));
 
     KeyEvent ev = new KeyEvent(new KeyCode.Char('a'), new KeyModifiers(0));
@@ -75,10 +75,13 @@ class EventRegistryDispatchTest {
     Fiber inner = middle.child(0);
 
     List<String> log = new ArrayList<>();
-    r.addKey(inner, new KeyCode.Char('a'), e -> {
-      log.add("inner");
-      e.stopPropagation();
-    });
+    r.addKey(
+        inner,
+        new KeyCode.Char('a'),
+        e -> {
+          log.add("inner");
+          e.stopPropagation();
+        });
     r.addKey(middle, new KeyCode.Char('a'), e -> log.add("middle"));
     r.addKey(outer, new KeyCode.Char('a'), e -> log.add("outer"));
 
@@ -111,10 +114,13 @@ class EventRegistryDispatchTest {
     Fiber outer = Fiber.root().child(0);
 
     List<String> log = new ArrayList<>();
-    r.addKey(outer, new KeyCode.Char('q'), e -> {
-      log.add("outer");
-      e.stopPropagation();
-    });
+    r.addKey(
+        outer,
+        new KeyCode.Char('q'),
+        e -> {
+          log.add("outer");
+          e.stopPropagation();
+        });
     r.addGlobalKey(new KeyCode.Char('q'), e -> log.add("global"));
 
     KeyEvent ev = new KeyEvent(new KeyCode.Char('q'), new KeyModifiers(0));
@@ -195,10 +201,13 @@ class EventRegistryDispatchTest {
     r.recordBounds(inner, a);
 
     List<String> log = new ArrayList<>();
-    r.addClick(inner, a, e -> {
-      log.add("inner");
-      e.stopPropagation();
-    });
+    r.addClick(
+        inner,
+        a,
+        e -> {
+          log.add("inner");
+          e.stopPropagation();
+        });
     r.addClick(outer, a, e -> log.add("outer"));
 
     MouseEvent ev = new MouseEvent(5, 5, new KeyModifiers(0), MouseEvent.Kind.DOWN);

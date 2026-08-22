@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Compile + test
+    name: Format + compile + test
     timeout-minutes: 15
     runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message, 'ci skip')"
@@ -20,6 +20,20 @@ jobs:
       - uses: coursier/cache-action@v7
         with:
           extraFiles: bleep.yaml
+
+      # The `bleep` launcher reads $version from bleep.yaml, so this checks with exactly the
+      # scalafmt and google-java-format versions a contributor running `bleep fmt` gets. A gate
+      # formatting with a different version than contributors do is worse than no gate.
+      - name: Check formatting
+        run: bleep fmt --check
+
+      # `--check` names the offending files but not what is wrong with them. Reformat and print
+      # the diff so the failure says exactly which lines to change.
+      - name: Show formatting diff
+        if: failure()
+        run: |
+          bleep fmt
+          git --no-pager diff
 
       - name: Compile
         run: bleep compile

@@ -64,8 +64,7 @@ class ReactAppFocusKeyTest {
         frame -> {
           app.events.clear();
           app.focus.clearFrame();
-          RenderContext ctx =
-              new RenderContext(frame, app.events, app.hooks, app.focus, () -> {});
+          RenderContext ctx = new RenderContext(frame, app.events, app.hooks, app.focus, () -> {});
           app.events.recordBounds(Fiber.root(), frame.area());
           root.render(ctx, frame.area());
         });

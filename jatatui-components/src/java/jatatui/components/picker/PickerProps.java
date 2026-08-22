@@ -60,18 +60,21 @@ public record PickerProps<T>(
   }
 
   public PickerProps<T> withSize(Size size) {
-    return new PickerProps<>(title, filter, rowRenderer, onSelect, onCancel, size, maxVisible, hint);
+    return new PickerProps<>(
+        title, filter, rowRenderer, onSelect, onCancel, size, maxVisible, hint);
   }
 
   /// Cap on the number of rows rendered. Beyond ~100 the user re-types instead of scrolling;
   /// rendering more just costs frames.
   public PickerProps<T> withMaxVisible(int maxVisible) {
-    return new PickerProps<>(title, filter, rowRenderer, onSelect, onCancel, size, maxVisible, hint);
+    return new PickerProps<>(
+        title, filter, rowRenderer, onSelect, onCancel, size, maxVisible, hint);
   }
 
   /// Replace the bottom hint line. Pass [Optional#empty] to drop it entirely.
   public PickerProps<T> withHint(Optional<String> hint) {
-    return new PickerProps<>(title, filter, rowRenderer, onSelect, onCancel, size, maxVisible, hint);
+    return new PickerProps<>(
+        title, filter, rowRenderer, onSelect, onCancel, size, maxVisible, hint);
   }
 
   public PickerProps<T> withHint(String hint) {

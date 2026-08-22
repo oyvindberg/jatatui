@@ -30,11 +30,15 @@ public final class RouterExample {
           RouterApi r = RouterApi.useRouter(ctx);
           ctx.onGlobalKey(new KeyCode.Char('s'), () -> r.push("settings", settings()));
           ctx.onGlobalKey(new KeyCode.Char('a'), () -> r.push("about", about()));
-          return chrome(r,
+          return chrome(
+              r,
               column(
                   length(1, text("Welcome to Home.", Style.empty().withFg(Color.WHITE))),
-                  length(2, text("Press 's' for Settings, 'a' for About.",
-                      Style.empty().withFg(Color.GRAY))),
+                  length(
+                      2,
+                      text(
+                          "Press 's' for Settings, 'a' for About.",
+                          Style.empty().withFg(Color.GRAY))),
                   fill(1, text(""))));
         });
   }
@@ -44,11 +48,15 @@ public final class RouterExample {
         ctx -> {
           RouterApi r = RouterApi.useRouter(ctx);
           ctx.onGlobalKey(new KeyCode.Backspace(), r::pop);
-          return chrome(r,
+          return chrome(
+              r,
               column(
                   length(1, text("Settings page.", Style.empty().withFg(Color.WHITE))),
-                  length(2, text("Press 'Backspace' to go back, 'a' to push About on top.",
-                      Style.empty().withFg(Color.GRAY))),
+                  length(
+                      2,
+                      text(
+                          "Press 'Backspace' to go back, 'a' to push About on top.",
+                          Style.empty().withFg(Color.GRAY))),
                   whenInline(ctx, r),
                   fill(1, text(""))));
         });
@@ -59,11 +67,11 @@ public final class RouterExample {
         ctx -> {
           RouterApi r = RouterApi.useRouter(ctx);
           ctx.onGlobalKey(new KeyCode.Backspace(), r::pop);
-          return chrome(r,
+          return chrome(
+              r,
               column(
                   length(1, text("About this app.", Style.empty().withFg(Color.WHITE))),
-                  length(2, text("Built with jatatui-react.",
-                      Style.empty().withFg(Color.GRAY))),
+                  length(2, text("Built with jatatui-react.", Style.empty().withFg(Color.GRAY))),
                   fill(1, text(""))));
         });
   }
@@ -71,8 +79,11 @@ public final class RouterExample {
   /// Push About onto a settings screen — small "open about from settings" affordance.
   static Element whenInline(jatatui.react.RenderContext ctx, RouterApi r) {
     ctx.onGlobalKey(new KeyCode.Char('a'), () -> r.push("about", about()));
-    return length(1, text("(or press 'a' to push About on top of Settings)",
-        Style.empty().withFg(Color.DARK_GRAY)));
+    return length(
+        1,
+        text(
+            "(or press 'a' to push About on top of Settings)",
+            Style.empty().withFg(Color.DARK_GRAY)));
   }
 
   /// Common chrome: breadcrumb on top + the screen body.
@@ -83,10 +94,8 @@ public final class RouterExample {
       bc.append(r.stack().get(i).label());
     }
     return column(
-            length(1, text(bc.toString(),
-                Style.empty().withFg(Color.WHITE).withBg(Color.BLUE))),
-            length(1, text(" Backspace=pop  Esc=quit  ",
-                Style.empty().withFg(Color.GRAY))),
+            length(1, text(bc.toString(), Style.empty().withFg(Color.WHITE).withBg(Color.BLUE))),
+            length(1, text(" Backspace=pop  Esc=quit  ", Style.empty().withFg(Color.GRAY))),
             fill(1, box(" Screen ", Borders.ALL, body)))
         .with(p -> p.withSpacing(0).withMargin(new Margin(1, 1)));
   }

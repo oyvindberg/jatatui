@@ -66,39 +66,120 @@ public final class TextInput implements Widget {
   }
 
   public TextInput withValue(String value) {
-    return new TextInput(value, cursorPos, scrollOffset, focused, placeholder, style, focusedStyle, placeholderStyle, cursorStyle);
+    return new TextInput(
+        value,
+        cursorPos,
+        scrollOffset,
+        focused,
+        placeholder,
+        style,
+        focusedStyle,
+        placeholderStyle,
+        cursorStyle);
   }
 
   public TextInput withCursorPos(int cursorPos) {
-    return new TextInput(value, cursorPos, scrollOffset, focused, placeholder, style, focusedStyle, placeholderStyle, cursorStyle);
+    return new TextInput(
+        value,
+        cursorPos,
+        scrollOffset,
+        focused,
+        placeholder,
+        style,
+        focusedStyle,
+        placeholderStyle,
+        cursorStyle);
   }
 
   public TextInput withScrollOffset(int scrollOffset) {
-    return new TextInput(value, cursorPos, scrollOffset, focused, placeholder, style, focusedStyle, placeholderStyle, cursorStyle);
+    return new TextInput(
+        value,
+        cursorPos,
+        scrollOffset,
+        focused,
+        placeholder,
+        style,
+        focusedStyle,
+        placeholderStyle,
+        cursorStyle);
   }
 
   public TextInput withFocused(boolean focused) {
-    return new TextInput(value, cursorPos, scrollOffset, focused, placeholder, style, focusedStyle, placeholderStyle, cursorStyle);
+    return new TextInput(
+        value,
+        cursorPos,
+        scrollOffset,
+        focused,
+        placeholder,
+        style,
+        focusedStyle,
+        placeholderStyle,
+        cursorStyle);
   }
 
   public TextInput withPlaceholder(String placeholder) {
-    return new TextInput(value, cursorPos, scrollOffset, focused, placeholder, style, focusedStyle, placeholderStyle, cursorStyle);
+    return new TextInput(
+        value,
+        cursorPos,
+        scrollOffset,
+        focused,
+        placeholder,
+        style,
+        focusedStyle,
+        placeholderStyle,
+        cursorStyle);
   }
 
   public TextInput withStyle(Style style) {
-    return new TextInput(value, cursorPos, scrollOffset, focused, placeholder, style, focusedStyle, placeholderStyle, cursorStyle);
+    return new TextInput(
+        value,
+        cursorPos,
+        scrollOffset,
+        focused,
+        placeholder,
+        style,
+        focusedStyle,
+        placeholderStyle,
+        cursorStyle);
   }
 
   public TextInput withFocusedStyle(Style focusedStyle) {
-    return new TextInput(value, cursorPos, scrollOffset, focused, placeholder, style, focusedStyle, placeholderStyle, cursorStyle);
+    return new TextInput(
+        value,
+        cursorPos,
+        scrollOffset,
+        focused,
+        placeholder,
+        style,
+        focusedStyle,
+        placeholderStyle,
+        cursorStyle);
   }
 
   public TextInput withPlaceholderStyle(Style placeholderStyle) {
-    return new TextInput(value, cursorPos, scrollOffset, focused, placeholder, style, focusedStyle, placeholderStyle, cursorStyle);
+    return new TextInput(
+        value,
+        cursorPos,
+        scrollOffset,
+        focused,
+        placeholder,
+        style,
+        focusedStyle,
+        placeholderStyle,
+        cursorStyle);
   }
 
   public TextInput withCursorStyle(Style cursorStyle) {
-    return new TextInput(value, cursorPos, scrollOffset, focused, placeholder, style, focusedStyle, placeholderStyle, cursorStyle);
+    return new TextInput(
+        value,
+        cursorPos,
+        scrollOffset,
+        focused,
+        placeholder,
+        style,
+        focusedStyle,
+        placeholderStyle,
+        cursorStyle);
   }
 
   // ---- Render ----

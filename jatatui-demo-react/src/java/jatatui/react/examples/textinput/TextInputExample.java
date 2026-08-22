@@ -27,11 +27,18 @@ public final class TextInputExample {
           var email = ctx.useState(() -> "");
 
           return column(
-                  length(1, text(" textInput demo  —  Tab to cycle, Esc to quit ",
-                      Style.empty().withFg(Color.WHITE).withBg(Color.BLUE))),
-                  length(3, titledTextInput("Name",  name.get(),  name::set,  "first name",      "name")),
-                  length(3, titledTextInput("Email", email.get(), email::set, "you@example.com", "email")),
-                  length(2,
+                  length(
+                      1,
+                      text(
+                          " textInput demo  —  Tab to cycle, Esc to quit ",
+                          Style.empty().withFg(Color.WHITE).withBg(Color.BLUE))),
+                  length(3, titledTextInput("Name", name.get(), name::set, "first name", "name")),
+                  length(
+                      3,
+                      titledTextInput(
+                          "Email", email.get(), email::set, "you@example.com", "email")),
+                  length(
+                      2,
                       text(
                           "Echo: name=\"" + name.get() + "\"  email=\"" + email.get() + "\"",
                           Style.empty().withFg(Color.GRAY))),

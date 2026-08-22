@@ -112,14 +112,18 @@ class ImperativeFocusTest {
   void screen_change_requests_rerender_so_new_focus_paints_next_tick() throws IOException {
     TestHarness h = new TestHarness(40, 12);
 
-    Element screenA = component(ctx -> {
-      ctx.useFocus(Optional.of("A"), true);
-      return text("A");
-    });
-    Element screenB = component(ctx -> {
-      ctx.useFocus(Optional.of("B"), true);
-      return text("B");
-    });
+    Element screenA =
+        component(
+            ctx -> {
+              ctx.useFocus(Optional.of("A"), true);
+              return text("A");
+            });
+    Element screenB =
+        component(
+            ctx -> {
+              ctx.useFocus(Optional.of("B"), true);
+              return text("B");
+            });
 
     java.util.concurrent.atomic.AtomicBoolean showA =
         new java.util.concurrent.atomic.AtomicBoolean(true);

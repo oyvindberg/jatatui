@@ -26,13 +26,17 @@ class DropdownTest {
 
     Element app =
         column(
-                length(3, dropdown("Color", List.of("red", "green", "blue", "yellow"),
-                    selected.get(),
-                    i -> {
-                      selected.set(i);
-                      changeCount.incrementAndGet();
-                    },
-                    "color")),
+                length(
+                    3,
+                    dropdown(
+                        "Color",
+                        List.of("red", "green", "blue", "yellow"),
+                        selected.get(),
+                        i -> {
+                          selected.set(i);
+                          changeCount.incrementAndGet();
+                        },
+                        "color")),
                 fill(1, text("")))
             .with(p -> p.withSpacing(0).withMargin(new Margin(0, 0)));
 
@@ -40,15 +44,13 @@ class DropdownTest {
     h.render(app);
 
     // Click the trigger (top of the column, rows 0..2). Anywhere in row 1 lands inside the box.
-    h.events.dispatchMouse(
-        new MouseEvent(5, 1, new KeyModifiers(0), MouseEvent.Kind.DOWN));
+    h.events.dispatchMouse(new MouseEvent(5, 1, new KeyModifiers(0), MouseEvent.Kind.DOWN));
     h.render(app);
 
     // Now the option list is open just below the trigger. Default size: 4 items + 2 borders =
     // 6 rows starting at y=3. Row content (after the top border at y=3) starts at y=4.
     // Click on the third item ("blue") which sits at y=6.
-    h.events.dispatchMouse(
-        new MouseEvent(5, 6, new KeyModifiers(0), MouseEvent.Kind.DOWN));
+    h.events.dispatchMouse(new MouseEvent(5, 6, new KeyModifiers(0), MouseEvent.Kind.DOWN));
     h.render(app);
 
     assertEquals(1, changeCount.get(), "click on option row should fire onChange exactly once");
@@ -57,8 +59,7 @@ class DropdownTest {
     // After committing, dropdown should be closed — re-render shouldn't paint the option list,
     // and clicking where the option list was should NOT re-commit.
     int countBefore = changeCount.get();
-    h.events.dispatchMouse(
-        new MouseEvent(5, 6, new KeyModifiers(0), MouseEvent.Kind.DOWN));
+    h.events.dispatchMouse(new MouseEvent(5, 6, new KeyModifiers(0), MouseEvent.Kind.DOWN));
     h.render(app);
     assertEquals(countBefore, changeCount.get(), "dropdown is closed; click does not commit");
   }
@@ -73,13 +74,17 @@ class DropdownTest {
 
     Element app =
         column(
-                length(3, dropdown("Color", List.of("red", "green", "blue"),
-                    selected.get(),
-                    i -> {
-                      selected.set(i);
-                      changeCount.incrementAndGet();
-                    },
-                    "color")),
+                length(
+                    3,
+                    dropdown(
+                        "Color",
+                        List.of("red", "green", "blue"),
+                        selected.get(),
+                        i -> {
+                          selected.set(i);
+                          changeCount.incrementAndGet();
+                        },
+                        "color")),
                 fill(1, text("")))
             .with(p -> p.withSpacing(0).withMargin(new Margin(0, 0)));
 
@@ -87,8 +92,7 @@ class DropdownTest {
     h.render(app);
 
     // Open with click — also focuses the dropdown.
-    h.events.dispatchMouse(
-        new MouseEvent(5, 1, new KeyModifiers(0), MouseEvent.Kind.DOWN));
+    h.events.dispatchMouse(new MouseEvent(5, 1, new KeyModifiers(0), MouseEvent.Kind.DOWN));
     h.render(app);
 
     // Press Down twice: highlight 0 → 1 → 2 (blue).
@@ -109,7 +113,11 @@ class DropdownTest {
   }
 
   /// Dropdown is generic over `T` — typed options (here an enum) work with a labelFn.
-  enum Color { RED, GREEN, BLUE }
+  enum Color {
+    RED,
+    GREEN,
+    BLUE
+  }
 
   @Test
   void typed_options_via_labelfn() throws IOException {
@@ -118,7 +126,8 @@ class DropdownTest {
 
     Element app =
         column(
-                length(3,
+                length(
+                    3,
                     jatatui.components.Components.dropdown(
                         DropdownProps.of(
                                 "Color",
@@ -157,13 +166,17 @@ class DropdownTest {
 
     Element app =
         column(
-                length(3, dropdown("A", List.of("red", "green", "blue"),
-                    selected.get(),
-                    i -> {
-                      selected.set(i);
-                      changeCount.incrementAndGet();
-                    },
-                    "a")),
+                length(
+                    3,
+                    dropdown(
+                        "A",
+                        List.of("red", "green", "blue"),
+                        selected.get(),
+                        i -> {
+                          selected.set(i);
+                          changeCount.incrementAndGet();
+                        },
+                        "a")),
                 length(3, dropdown("B", List.of("p", "q"), 0, i -> {}, "b")),
                 fill(1, text("")))
             .with(p -> p.withSpacing(0).withMargin(new Margin(0, 0)));
@@ -172,8 +185,7 @@ class DropdownTest {
     h.render(app);
 
     // Open A.
-    h.events.dispatchMouse(
-        new MouseEvent(5, 1, new KeyModifiers(0), MouseEvent.Kind.DOWN));
+    h.events.dispatchMouse(new MouseEvent(5, 1, new KeyModifiers(0), MouseEvent.Kind.DOWN));
     h.render(app);
 
     // Move highlight 0 → 1 → 2 (blue).
@@ -201,10 +213,14 @@ class DropdownTest {
 
     Element app =
         column(
-                length(3, dropdown("A", List.of("red", "green", "blue"),
-                    1, // start with green selected
-                    i -> changeCount.incrementAndGet(),
-                    "a")),
+                length(
+                    3,
+                    dropdown(
+                        "A",
+                        List.of("red", "green", "blue"),
+                        1, // start with green selected
+                        i -> changeCount.incrementAndGet(),
+                        "a")),
                 length(3, dropdown("B", List.of("p", "q"), 0, i -> {}, "b")),
                 fill(1, text("")))
             .with(p -> p.withSpacing(0).withMargin(new Margin(0, 0)));
@@ -213,8 +229,7 @@ class DropdownTest {
     h.render(app);
 
     // Open A (highlight initialized to selectedIndex = 1).
-    h.events.dispatchMouse(
-        new MouseEvent(5, 1, new KeyModifiers(0), MouseEvent.Kind.DOWN));
+    h.events.dispatchMouse(new MouseEvent(5, 1, new KeyModifiers(0), MouseEvent.Kind.DOWN));
     h.render(app);
 
     // Tab away — same highlight as selection, no onChange.
@@ -240,23 +255,20 @@ class DropdownTest {
     h.render(app);
 
     // Open the first dropdown.
-    h.events.dispatchMouse(
-        new MouseEvent(5, 1, new KeyModifiers(0), MouseEvent.Kind.DOWN));
+    h.events.dispatchMouse(new MouseEvent(5, 1, new KeyModifiers(0), MouseEvent.Kind.DOWN));
     h.render(app);
-    assertEquals(java.util.Optional.of("a"), h.focus.currentlyFocused(),
-        "click on A's trigger focused A");
+    assertEquals(
+        java.util.Optional.of("a"), h.focus.currentlyFocused(), "click on A's trigger focused A");
 
     // Move focus to B (Tab in ReactApp would do focus.tab(); we call it directly for the test).
     h.renderer.tab();
     h.render(app);
-    assertEquals(java.util.Optional.of("b"), h.focus.currentlyFocused(),
-        "focus moved to B");
+    assertEquals(java.util.Optional.of("b"), h.focus.currentlyFocused(), "focus moved to B");
 
     // The first dropdown's open list should no longer respond — Down on B doesn't change A.
     // We can't easily inspect openState directly, but the symptom would be: clicking where A's
     // open-list used to be re-fires onChange. After auto-close, that click does nothing.
-    h.events.dispatchMouse(
-        new MouseEvent(5, 5, new KeyModifiers(0), MouseEvent.Kind.DOWN));
+    h.events.dispatchMouse(new MouseEvent(5, 5, new KeyModifiers(0), MouseEvent.Kind.DOWN));
     h.render(app);
     // No commit happened on either dropdown — implicit assertion (no exception, focus still B).
     assertEquals(java.util.Optional.of("b"), h.focus.currentlyFocused());
@@ -269,10 +281,14 @@ class DropdownTest {
 
     Element app =
         column(
-                length(3, dropdown("Color", List.of("red", "green", "blue"),
-                    0,
-                    i -> changeCount.incrementAndGet(),
-                    "color")),
+                length(
+                    3,
+                    dropdown(
+                        "Color",
+                        List.of("red", "green", "blue"),
+                        0,
+                        i -> changeCount.incrementAndGet(),
+                        "color")),
                 fill(1, text("")))
             .with(p -> p.withSpacing(0).withMargin(new Margin(0, 0)));
 

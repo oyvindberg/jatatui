@@ -38,8 +38,7 @@ class ScreenFrameTest {
   @Test
   void clicking_back_chip_invokes_back() throws IOException {
     AtomicInteger backCount = new AtomicInteger();
-    Element app =
-        ScreenFrame.of("home", backCount::incrementAndGet, text("body"));
+    Element app = ScreenFrame.of("home", backCount::incrementAndGet, text("body"));
 
     TestHarness h = new TestHarness(40, 12);
     h.render(app);

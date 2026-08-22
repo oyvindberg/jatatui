@@ -84,11 +84,7 @@ class PickerTest {
     AtomicReference<String> selected = new AtomicReference<>();
     PickerProps<String> props =
         PickerProps.of(
-            " Pick ",
-            substring(List.of("a", "b", "c")),
-            textRow(),
-            selected::set,
-            () -> {});
+            " Pick ", substring(List.of("a", "b", "c")), textRow(), selected::set, () -> {});
 
     TestHarness h = new TestHarness(120, 30);
     h.render(pickerApp(props));
@@ -107,11 +103,7 @@ class PickerTest {
     AtomicReference<String> selected = new AtomicReference<>();
     PickerProps<String> props =
         PickerProps.of(
-            " Pick ",
-            substring(List.of("a", "b", "c")),
-            textRow(),
-            selected::set,
-            () -> {});
+            " Pick ", substring(List.of("a", "b", "c")), textRow(), selected::set, () -> {});
 
     TestHarness h = new TestHarness(120, 30);
     h.render(pickerApp(props));
@@ -158,8 +150,7 @@ class PickerTest {
 
     // Picker is 80x20 centered in 120x30 → modal covers (20..99, 5..24). Click at (5, 1) is
     // outside.
-    h.renderer.dispatchMouse(
-        new MouseEvent(5, 1, new KeyModifiers(0), MouseEvent.Kind.DOWN));
+    h.renderer.dispatchMouse(new MouseEvent(5, 1, new KeyModifiers(0), MouseEvent.Kind.DOWN));
     assertEquals(1, cancelCount.get());
   }
 
@@ -180,8 +171,7 @@ class PickerTest {
     // Modal centered in 120x30 with size 80x20 → top-left at (20, 5). Inside the box border
     // the textinput takes 3 rows, then results start at y = 5 + 1 (top border) + 3 (input).
     // First result row is at y = 9. Click on it.
-    h.renderer.dispatchMouse(
-        new MouseEvent(30, 9, new KeyModifiers(0), MouseEvent.Kind.DOWN));
+    h.renderer.dispatchMouse(new MouseEvent(30, 9, new KeyModifiers(0), MouseEvent.Kind.DOWN));
     assertEquals("apple", selected.get());
   }
 
@@ -221,12 +211,7 @@ class PickerTest {
         new java.util.concurrent.atomic.AtomicBoolean(false);
 
     PickerProps<String> props =
-        PickerProps.of(
-            " Pick ",
-            substring(List.of("a", "b", "c")),
-            textRow(),
-            s -> {},
-            () -> {});
+        PickerProps.of(" Pick ", substring(List.of("a", "b", "c")), textRow(), s -> {}, () -> {});
 
     Element app =
         component(

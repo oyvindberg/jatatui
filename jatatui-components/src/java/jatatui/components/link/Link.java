@@ -34,10 +34,7 @@ public final class Link {
   /// Tab-focusable link with an explicit focus id (for imperative `ctx.focus(id)` / Tab order
   /// stability across reorders).
   public static Element focusable(
-      String focusId,
-      boolean autoFocus,
-      Runnable onActivate,
-      Function<Boolean, Element> content) {
+      String focusId, boolean autoFocus, Runnable onActivate, Function<Boolean, Element> content) {
     return component(
         ctx -> {
           boolean focused = ctx.useFocus(Optional.of(focusId), autoFocus);

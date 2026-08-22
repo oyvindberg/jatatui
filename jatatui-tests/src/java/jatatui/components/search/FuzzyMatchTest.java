@@ -67,9 +67,7 @@ class FuzzyMatchTest {
     List<String> ranked = FuzzyMatch.rank("cn", indexed);
     assertTrue(ranked.contains("customer_name"));
     assertEquals(
-        "customer_name",
-        ranked.get(0),
-        "highest-scoring (word-start on both chars) ranks first");
+        "customer_name", ranked.get(0), "highest-scoring (word-start on both chars) ranks first");
     assertFalse(ranked.contains("order_total"), "non-matching items dropped");
   }
 

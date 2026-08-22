@@ -11,7 +11,6 @@ import jatatui.core.style.Color;
 import jatatui.core.style.Style;
 import jatatui.react.Element;
 import jatatui.react.ReactApp;
-import jatatui.widgets.Borders;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -74,25 +73,36 @@ public final class FormExample {
               });
 
           return column(
-                  length(1, text(" form demo  —  Tab to cycle, Ctrl-S submit, Ctrl-R reset, Esc to quit ",
-                      Style.empty().withFg(Color.WHITE).withBg(Color.BLUE))),
-                  length(3,
+                  length(
+                      1,
+                      text(
+                          " form demo  —  Tab to cycle, Ctrl-S submit, Ctrl-R reset, Esc to quit ",
+                          Style.empty().withFg(Color.WHITE).withBg(Color.BLUE))),
+                  length(
+                      3,
                       titledTextInput(
                           "Name" + (name.hasError() ? " (!)" : ""),
-                          name.value(), name.setValue(),
-                          "your name", "name")),
-                  length(1, text(name.error().orElse(""),
-                      Style.empty().withFg(Color.RED))),
-                  length(3,
+                          name.value(),
+                          name.setValue(),
+                          "your name",
+                          "name")),
+                  length(1, text(name.error().orElse(""), Style.empty().withFg(Color.RED))),
+                  length(
+                      3,
                       titledTextInput(
                           "Email" + (email.hasError() ? " (!)" : ""),
-                          email.value(), email.setValue(),
-                          "you@example.com", "email")),
-                  length(1, text(email.error().orElse(""),
-                      Style.empty().withFg(Color.RED))),
-                  length(2, text(
-                      form.hasErrors() ? "Form has errors — fix before submitting." : "Form OK — Ctrl-S to submit.",
-                      Style.empty().withFg(form.hasErrors() ? Color.RED : Color.GREEN))),
+                          email.value(),
+                          email.setValue(),
+                          "you@example.com",
+                          "email")),
+                  length(1, text(email.error().orElse(""), Style.empty().withFg(Color.RED))),
+                  length(
+                      2,
+                      text(
+                          form.hasErrors()
+                              ? "Form has errors — fix before submitting."
+                              : "Form OK — Ctrl-S to submit.",
+                          Style.empty().withFg(form.hasErrors() ? Color.RED : Color.GREEN))),
                   fill(1, text("")))
               .with(p -> p.withSpacing(1).withMargin(new Margin(2, 1)));
         });

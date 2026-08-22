@@ -24,8 +24,7 @@ class ModalTest {
 
     Element app =
         column(
-                length(3,
-                    button("  [ Open Modal ]  ", Style.empty(), () -> buttonFired.set(true))),
+                length(3, button("  [ Open Modal ]  ", Style.empty(), () -> buttonFired.set(true))),
                 fill(1, text("background")),
                 modal(true, " Modal ", text("body"), () -> dismissed.set(true)))
             .with(p -> p.withSpacing(0).withMargin(new Margin(0, 0)));
@@ -72,8 +71,7 @@ class ModalTest {
 
     Element app =
         column(
-                length(3,
-                    button("  [ Open Modal ]  ", Style.empty(), () -> buttonFired.set(true))),
+                length(3, button("  [ Open Modal ]  ", Style.empty(), () -> buttonFired.set(true))),
                 fill(1, text("bg")),
                 modal(false, " Modal ", text("body"), () -> {}))
             .with(p -> p.withSpacing(0).withMargin(new Margin(0, 0)));

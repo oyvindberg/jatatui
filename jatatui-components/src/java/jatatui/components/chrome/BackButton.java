@@ -41,8 +41,7 @@ public final class BackButton {
               .ifPresent(
                   a -> {
                     int width = Math.min(buttonWidth, a.width());
-                    Rect hit =
-                        new Rect(a.x(), a.y(), width, Math.min(HEIGHT, a.height()));
+                    Rect hit = new Rect(a.x(), a.y(), width, Math.min(HEIGHT, a.height()));
                     ctx.onClick(
                         hit,
                         e -> {

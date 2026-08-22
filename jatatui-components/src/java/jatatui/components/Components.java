@@ -1,35 +1,35 @@
 package jatatui.components;
 
+import jatatui.components.button.Button;
+import jatatui.components.chrome.BackButton;
+import jatatui.components.chrome.ScreenFrame;
+import jatatui.components.dropdown.Dropdown;
+import jatatui.components.dropdown.DropdownProps;
+import jatatui.components.form.FormProvider;
 import jatatui.components.gauge.GaugeComponent;
 import jatatui.components.gauge.GaugeProps;
 import jatatui.components.gauge.LineGaugeComponent;
 import jatatui.components.gauge.LineGaugeProps;
+import jatatui.components.link.Link;
 import jatatui.components.list.ListComponent;
 import jatatui.components.list.ListProps;
-import jatatui.components.dropdown.Dropdown;
-import jatatui.components.dropdown.DropdownProps;
-import jatatui.components.form.FormProvider;
-import jatatui.components.button.Button;
-import jatatui.components.chrome.BackButton;
-import jatatui.components.chrome.ScreenFrame;
-import jatatui.components.link.Link;
 import jatatui.components.modal.ConfirmDialog;
 import jatatui.components.modal.Modal;
 import jatatui.components.modal.ModalProps;
-import jatatui.components.scrollable.Scrollable;
 import jatatui.components.picker.Picker;
 import jatatui.components.picker.PickerProps;
-import jatatui.components.selectablelist.SelectableList;
-import jatatui.components.selectablelist.SelectableListProps;
 import jatatui.components.router.Router;
 import jatatui.components.router.Screen;
-import jatatui.components.theme.Theme;
-import jatatui.components.theme.ThemeProvider;
-import jatatui.components.toast.ToastsProvider;
+import jatatui.components.scrollable.Scrollable;
+import jatatui.components.selectablelist.SelectableList;
+import jatatui.components.selectablelist.SelectableListProps;
 import jatatui.components.table.Table;
 import jatatui.components.table.TableProps;
 import jatatui.components.textinput.TextInputComponent;
 import jatatui.components.textinput.TextInputProps;
+import jatatui.components.theme.Theme;
+import jatatui.components.theme.ThemeProvider;
+import jatatui.components.toast.ToastsProvider;
 import jatatui.core.layout.Constraint;
 import jatatui.core.style.Style;
 import jatatui.react.Element;
@@ -269,7 +269,9 @@ public final class Components {
   /// Focusable + clickable activation target. `onActivate` runs on Enter (when focused) or on
   /// click. The most common use is `() -> router.push(screen)`, but any Runnable works.
   public static Element link(
-      boolean autoFocus, Runnable onActivate, java.util.function.Function<Boolean, Element> content) {
+      boolean autoFocus,
+      Runnable onActivate,
+      java.util.function.Function<Boolean, Element> content) {
     return Link.focusable(autoFocus, onActivate, content);
   }
 

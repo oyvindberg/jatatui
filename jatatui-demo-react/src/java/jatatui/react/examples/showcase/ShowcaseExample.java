@@ -110,8 +110,7 @@ public final class ShowcaseExample {
 
   // ---- Body ----
 
-  static Element body(
-      int selected, int count, jatatui.react.State<List<String>> messages) {
+  static Element body(int selected, int count, jatatui.react.State<List<String>> messages) {
     return switch (selected) {
       case 0 -> homeTab(count, messages);
       case 1 -> statsTab(count, messages.get().size());

@@ -36,9 +36,9 @@ public final class ThemeExample {
         ctx -> {
           Theme theme = Theme.useTheme(ctx);
           return column(
-                  length(1, text(" theme demo  —  press 't' to toggle, Esc to quit ", theme.title())),
-                  length(3,
-                      box(" Title ", Borders.ALL, text("Themed body text", theme.page()))),
+                  length(
+                      1, text(" theme demo  —  press 't' to toggle, Esc to quit ", theme.title())),
+                  length(3, box(" Title ", Borders.ALL, text("Themed body text", theme.page()))),
                   length(2, text("Accent text", theme.accent())),
                   length(1, text("Success — operation completed", theme.success())),
                   length(1, text("Warning — heads up", theme.warning())),

@@ -89,8 +89,7 @@ class RendererTest {
     drawOnce(r, app);
     r.clearDirty();
 
-    boolean fired =
-        r.dispatchKey(new KeyEvent(new KeyCode.Char('a'), new KeyModifiers(0)));
+    boolean fired = r.dispatchKey(new KeyEvent(new KeyCode.Char('a'), new KeyModifiers(0)));
     assertTrue(fired);
     assertEquals(1, pressed.get());
   }
@@ -145,10 +144,11 @@ class RendererTest {
                     initialCount.incrementAndGet();
                     return 0;
                   });
-              ctx.useEffect(() -> {
-                // Effect registers a cleanup, but our useEffect API runs `effect` and the
-                // cleanup must be registered by the effect's body. Here we just simulate.
-              });
+              ctx.useEffect(
+                  () -> {
+                    // Effect registers a cleanup, but our useEffect API runs `effect` and the
+                    // cleanup must be registered by the effect's body. Here we just simulate.
+                  });
               return text("with-state");
             });
 

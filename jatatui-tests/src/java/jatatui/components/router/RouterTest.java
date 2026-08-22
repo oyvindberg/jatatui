@@ -171,5 +171,4 @@ class RouterTest {
     assertEquals(1, apiRef.get().depth());
     assertEquals("home", apiRef.get().current().label());
   }
-
 }

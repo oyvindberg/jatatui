@@ -41,8 +41,7 @@ class StateUpdateTest {
                   innerCtx -> {
                     innerCtx.useFocus(Optional.of("outer"), true);
                     innerCtx.onKey(
-                        new KeyCode.Char('a'),
-                        () -> log.update(prev -> append(prev, "outer")));
+                        new KeyCode.Char('a'), () -> log.update(prev -> append(prev, "outer")));
                     return box(
                         " Outer ",
                         Borders.ALL,
@@ -80,10 +79,8 @@ class StateUpdateTest {
     // The State stored in HookStore should contain all three messages.
     @SuppressWarnings("unchecked")
     List<String> finalLog =
-        (List<String>) hooks.values.values().stream()
-            .filter(v -> v instanceof List)
-            .findFirst()
-            .orElseThrow();
+        (List<String>)
+            hooks.values.values().stream().filter(v -> v instanceof List).findFirst().orElseThrow();
 
     assertEquals(List.of("inner", "middle", "outer"), finalLog);
   }
@@ -129,10 +126,8 @@ class StateUpdateTest {
 
     @SuppressWarnings("unchecked")
     List<String> finalLog =
-        (List<String>) hooks.values.values().stream()
-            .filter(v -> v instanceof List)
-            .findFirst()
-            .orElseThrow();
+        (List<String>)
+            hooks.values.values().stream().filter(v -> v instanceof List).findFirst().orElseThrow();
 
     assertEquals(List.of("inner", "middle", "outer"), finalLog);
   }
@@ -156,9 +151,7 @@ class StateUpdateTest {
                       length(1, text(" header ")),
                       fill(
                           1,
-                          row(
-                                  fill(2, nestedClickBoxes(log)),
-                                  fill(1, text(" log panel ")))
+                          row(fill(2, nestedClickBoxes(log)), fill(1, text(" log panel ")))
                               .with(p -> p.withSpacing(1))),
                       length(1, text(" hint ")))
                   .with(p -> p.withMargin(new jatatui.core.layout.Margin(1, 0)));
@@ -173,10 +166,8 @@ class StateUpdateTest {
 
     @SuppressWarnings("unchecked")
     List<String> finalLog =
-        (List<String>) hooks.values.values().stream()
-            .filter(v -> v instanceof List)
-            .findFirst()
-            .orElseThrow();
+        (List<String>)
+            hooks.values.values().stream().filter(v -> v instanceof List).findFirst().orElseThrow();
 
     assertEquals(List.of("inner", "middle", "outer"), finalLog);
   }

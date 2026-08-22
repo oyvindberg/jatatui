@@ -23,8 +23,7 @@ public final class ScreenFrame {
 
   /// Variant with a brand/title strip next to the back button (e.g. main-menu header). The
   /// back chip is fixed-width on the left; the title fills the remainder.
-  public static Element withTitle(
-      String backLabel, Runnable back, Element title, Element content) {
+  public static Element withTitle(String backLabel, Runnable back, Element title, Element content) {
     return component(
         ctx ->
             column(

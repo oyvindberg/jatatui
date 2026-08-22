@@ -34,8 +34,7 @@ public record ModalProps(
   }
 
   public ModalProps withBackdropStyle(Style backdropStyle) {
-    return new ModalProps(
-        open, title, body, onDismiss, size, Optional.of(backdropStyle), boxStyle);
+    return new ModalProps(open, title, body, onDismiss, size, Optional.of(backdropStyle), boxStyle);
   }
 
   public ModalProps withBoxStyle(Style boxStyle) {
